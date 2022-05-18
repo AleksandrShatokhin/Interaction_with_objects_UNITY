@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class ArmorYellow : ArmorManager
 {
-    private Armor armor = new Armor();
-
     private void Start()
     {
-        armor.SetCharacteristics(speed, health, experience);
+        armor = new Armor(speed, health, experience);
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
-
-        if (other.gameObject.tag == "Player")
-        {
-            armor.TransferCharacteristicsToPlayer();
-        }
+        base.OnTriggerEnter(other);
     }
 }

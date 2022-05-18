@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public static GameController GetInstance() => instance;
 
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private MainUI mainui;
 
     [SerializeField] private GameObject michinegunPrefab, handgunPrefab;
 
@@ -17,7 +18,10 @@ public class GameController : MonoBehaviour
     }
 
     public PlayerController GetPlayerController() => playerController;
+    public MainUI GetMainUI() => mainui;
 
     public GameObject GetMichineGun() => michinegunPrefab;
     public GameObject GetHandGun() => handgunPrefab;
+
+    public void OutputTextArmorOnScreen(float speed, int health, int experience) => mainui.OutputTextArmorOnScreen(speed, health, experience);
 }

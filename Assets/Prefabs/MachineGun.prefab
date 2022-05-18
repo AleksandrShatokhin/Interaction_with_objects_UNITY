@@ -91,9 +91,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6345512c3f88fa74ab10eb8fc57aeae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 3829119924180501005}
   projectile: {fileID: 5111068874158896870, guid: 183f31c4d94ff6d4a8157d49037efd96, type: 3}
   spawnProjectilePosition: {fileID: 7714652725054796429}
+  quantityBulletsInClip: 12
+  quantityBulletsInPouch: 48
 --- !u!1 &5832886950440224653
 GameObject:
   m_ObjectHideFlags: 0

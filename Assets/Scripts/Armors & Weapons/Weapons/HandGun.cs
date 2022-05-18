@@ -4,24 +4,19 @@ using UnityEngine;
 
 public class HandGun : WeaponManager
 {
-    Weapon weapon = new Weapon();
-
     private void Start()
     {
-        weapon.SetCurrentWeapon(GameController.GetInstance().GetHandGun());
+        weapon = new Weapon(GameController.GetInstance().GetHandGun(), quantityBulletsInClip, quantityBulletsInPouch);
     }
 
     public void Shot()
     {
         Instantiate(projectile, spawnProjectilePosition.position, spawnProjectilePosition.rotation);
+        weapon.ChangeBullets(-1);
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
-        {
-            Destroy(gameObject);
-            weapon.PlayerTakesWeapon();
-        }
+        base.OnTriggerEnter(other);
     }
 }

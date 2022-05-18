@@ -4,24 +4,32 @@ using UnityEngine;
 
 public class MachineGun : WeaponManager
 {
-    Weapon weapon = new Weapon();
-
     private void Start()
     {
-        weapon.SetCurrentWeapon(GameController.GetInstance().GetMichineGun());
+        weapon = new Weapon(GameController.GetInstance().GetMichineGun(), quantityBulletsInClip, quantityBulletsInPouch);
     }
 
     public void Shot()
     {
-        Instantiate(projectile, spawnProjectilePosition.position, spawnProjectilePosition.rotation);
+        StartCoroutine(MachineGunShooting());
     }
 
-    private void OnTriggerEnter(Collider other)
+    private IEnumerator MachineGunShooting()
     {
-        if (other.gameObject.tag == "Player")
+        int counter = 0;
+
+        while (counter < 3)
         {
-            Destroy(gameObject);
-            weapon.PlayerTakesWeapon();
+            counter++;
+            Instantiate(projectile, spawnProjectilePosition.position, spawnProjectilePosition.rotation);
+            weapon.ChangeBullets(-1);
+
+            yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
     }
 }

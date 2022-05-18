@@ -12,30 +12,54 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int counterWeapon = 0;
 
     [SerializeField] private float speedPlayer;
-    [SerializeField] private int health;
-    [SerializeField] private int experience;
+    [SerializeField] private int healthPlayer;
+    [SerializeField] private int experiencePlayer;
 
     private void Start()
     {
         rb_Player = GetComponent<Rigidbody>();
+
+        GameController.GetInstance().OutputTextArmorOnScreen(speedPlayer, healthPlayer, experiencePlayer);
     }
 
     private void Update()
     {
         SwitchWeaponInHand();
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if (currentWeapon != null)
-            {
-                currentWeapon.GetComponentInParent<WeaponManager>().Shooting();
-            }
-        }
+        Shooting();
     }
 
     private void FixedUpdate()
     {
         MovementPlayer();
+    }
+
+    private void MovementPlayer()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        Vector3 movement = transform.right * horizontal + transform.forward * vertical;
+        rb_Player.velocity = movement * speedPlayer;
+    }
+
+    private void Shooting()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (currentWeapon != null)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    currentWeapon.GetComponentInParent<WeaponManager>().Shooting();
+                }
+
+                Vector3 direction = hit.point - currentWeapon.GetComponentInParent<WeaponManager>().GetSpawnProjectilePosition().position;
+                currentWeapon.GetComponentInParent<WeaponManager>().SetDirectionSpawnBullet(direction);
+            }
+        }
     }
 
     private void SwitchWeaponInHand()
@@ -72,27 +96,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void MovementPlayer()
-    {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = transform.right * horizontal + transform.forward * vertical;
-        rb_Player.velocity = movement * speedPlayer;
-    }
-
     public void PutOnArmor(float speed, int health, int experience)
     {
         this.speedPlayer += speed;
-        this.health += health;
-        this.experience += experience;
+        this.healthPlayer += health;
+        this.experiencePlayer += experience;
+
+        GameController.GetInstance().OutputTextArmorOnScreen(speedPlayer, healthPlayer, experiencePlayer);
     }
 
     public void ResetArmor()
     {
         this.speedPlayer = 10;
-        this.health = 10;
-        this.experience = 10;
+        this.healthPlayer = 10;
+        this.experiencePlayer = 10;
     }
 
     private void ResetWeaponInHierarchy()
@@ -135,6 +152,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // использую для переключения оружия колесиком мыши
     private GameObject TakeWeapon(int id)
     {
         ResetWeaponInHierarchy();
@@ -144,6 +162,7 @@ public class PlayerController : MonoBehaviour
         return currentWeapon;
     }
 
+    // использую при подборе нового оружие на сцене
     public GameObject TakeWeapon(GameObject weapon)
     {
         CheckListWeapon(weapon);
