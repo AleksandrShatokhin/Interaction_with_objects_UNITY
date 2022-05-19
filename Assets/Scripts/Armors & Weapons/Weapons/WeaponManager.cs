@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     protected Weapon weapon;
+    protected SaveDataWeapon saveData;
 
     [SerializeField] protected GameObject projectile;
     [SerializeField] protected Transform spawnProjectilePosition;
@@ -36,7 +37,7 @@ public class WeaponManager : MonoBehaviour
 
     virtual protected void OnDestroy()
     {
-        GameController.GetInstance().SetData(this.gameObject.tag, weapon.GetQuantityBulletsInClip(), weapon.GetQuantityBulletsInPouch());
+
     }
 
     virtual protected void OnTriggerEnter(Collider other)

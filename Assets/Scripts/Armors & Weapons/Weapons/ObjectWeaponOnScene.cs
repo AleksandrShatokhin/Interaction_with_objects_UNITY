@@ -9,7 +9,13 @@ public class ObjectWeaponOnScene : WeaponManager
     private void Start()
     {
         weapon = new Weapon(weaponPrefab);
-        GameController.GetInstance().SetData(this.gameObject.tag, quantityBulletsInClip, quantityBulletsInPouch);
+        saveData = new SaveDataWeapon();
+        saveData.SetData(this.gameObject.tag, quantityBulletsInClip, quantityBulletsInPouch);
+    }
+
+    private void Update()
+    {
+        transform.Rotate(Vector3.up * 40 * Time.deltaTime);
     }
 
     protected override void OnTriggerEnter(Collider other)

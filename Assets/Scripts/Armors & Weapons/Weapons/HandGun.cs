@@ -6,8 +6,10 @@ public class HandGun : WeaponManager
 {
     private void Start()
     {
-        quantityBulletsInClip = GameController.GetInstance().GetBulletsInClipHandgun();
-        quantityBulletsInPouch = GameController.GetInstance().GetBulletsInPouchHandgun();
+        saveData = new SaveDataWeapon();
+
+        quantityBulletsInClip = saveData.GetBulletsInClipHandGun();
+        quantityBulletsInPouch = saveData.GetBulletsInPouchHandGun();
 
         weapon = new Weapon(quantityBulletsInClip, quantityBulletsInPouch);
         weapon.OutputBulletsTextOnScreen();
@@ -15,12 +17,24 @@ public class HandGun : WeaponManager
 
     public void Shot()
     {
-        Instantiate(projectile, spawnProjectilePosition.position, spawnProjectilePosition.rotation);
-        weapon.ChangeBullets(-1);
+        if (weapon.IsCanShot())
+        {
+            Instantiate(projectile, spawnProjectilePosition.position, spawnProjectilePosition.rotation);
+            weapon.ChangeBullets(-1);
+        }
+        else
+        {
+            Debug.Log("Патронов больше нет!");
+        }
+    }
+
+    public void SaveData()
+    {
+        saveData.SetData(this.gameObject.tag, weapon.GetQuantityBulletsInClip(), weapon.GetQuantityBulletsInPouch());
     }
 
     protected override void OnDestroy()
     {
-        base.OnDestroy();
+        SaveData();
     }
 }

@@ -9,11 +9,7 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private PlayerController playerController;
     [SerializeField] private MainUI mainui;
-
-    private SaveData saveData = new SaveData();
-
-    private int bulletsInClipHandgun, bulletsInPouchHandgun;
-    private int bulletsInClipMachinegun, bulletsInPouchMachinegun;
+    [SerializeField] private InventoryManager inventoryManager;
 
     private void Awake()
     {
@@ -22,16 +18,7 @@ public class GameController : MonoBehaviour
 
     public PlayerController GetPlayerController() => playerController;
     public MainUI GetMainUI() => mainui;
+    public InventoryManager GetInventoryManager() => inventoryManager;
 
     public void OutputTextArmorOnScreen(float speed, int health, int experience) => mainui.OutputTextArmorOnScreen(speed, health, experience);
-
-    public void SetData(string tagWeapon, int bulletsInClip, int bulletsInPouch)
-    {
-        saveData.SetData(tagWeapon, bulletsInClip, bulletsInPouch);
-    }
-
-    public int GetBulletsInClipHandgun() => saveData.GetBulletsInClipHandGun();
-    public int GetBulletsInPouchHandgun() => saveData.GetBulletsInPouchHandGun();
-    public int GetBulletsInClipMachinegun() => saveData.GetBulletsInClipMachineGun();
-    public int GetBulletsInPouchMachinegun() => saveData.GetBulletsInPouchMachineGun();
 }

@@ -7,9 +7,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb_Player;
 
     [SerializeField] private Transform posForWeapon;
+    private Vector3 posWeaponForAIM = new Vector3(-0.2f, 0.12f, 0.0f);
     [SerializeField] private List<GameObject> weapons;
     private GameObject currentWeapon;
-    [SerializeField] private int counterWeapon = 0;
+    private int counterWeapon = 0;
 
     [SerializeField] private float speedPlayer;
     [SerializeField] private int healthPlayer;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         SwitchWeaponInHand();
         Shooting();
+        CallPlayerInventory();
     }
 
     private void FixedUpdate()
@@ -59,6 +61,33 @@ public class PlayerController : MonoBehaviour
                 Vector3 direction = hit.point - currentWeapon.GetComponentInParent<WeaponManager>().GetSpawnProjectilePosition().position;
                 currentWeapon.GetComponentInParent<WeaponManager>().SetDirectionSpawnBullet(direction);
             }
+        }
+
+        // настраиваю прицеливание
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            if (currentWeapon != null)
+            {
+                currentWeapon.transform.localPosition = posWeaponForAIM;
+                Camera.main.GetComponent<CameraController>().SetSensetivity(80);
+            }
+        }
+        
+        if ((Input.GetKeyUp(KeyCode.Mouse1)))
+        {
+            if (currentWeapon != null)
+            {
+                currentWeapon.transform.localPosition = Vector3.zero;
+                Camera.main.GetComponent<CameraController>().SetSensetivity(150);
+            }
+        }
+    }
+
+    private void CallPlayerInventory()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            GameController.GetInstance().GetInventoryManager().CallInventory();
         }
     }
 

@@ -8,11 +8,6 @@ public class CameraController : MonoBehaviour
     private float xRotation = 0f;
     [SerializeField] private Transform targetPlayer;
 
-    void Start()
-    {
-        
-    }
-
     void LateUpdate()
     {
         MoveCamera();
@@ -29,4 +24,6 @@ public class CameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         targetPlayer.Rotate(Vector3.up * mouseX);
     }
+
+    public float SetSensetivity(float sensetivity) => this.sensetivity = sensetivity;
 }

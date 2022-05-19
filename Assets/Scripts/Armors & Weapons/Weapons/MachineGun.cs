@@ -6,8 +6,10 @@ public class MachineGun : WeaponManager
 {
     private void Start()
     {
-        quantityBulletsInClip = GameController.GetInstance().GetBulletsInClipMachinegun();
-        quantityBulletsInPouch = GameController.GetInstance().GetBulletsInPouchMachinegun();
+        saveData = new SaveDataWeapon();
+
+        quantityBulletsInClip = saveData.GetBulletsInClipMachineGun();
+        quantityBulletsInPouch = saveData.GetBulletsInPouchMachineGun();
 
         weapon = new Weapon(quantityBulletsInClip, quantityBulletsInPouch);
         weapon.OutputBulletsTextOnScreen();
@@ -15,7 +17,14 @@ public class MachineGun : WeaponManager
 
     public void Shot()
     {
-        StartCoroutine(MachineGunShooting());
+        if (weapon.IsCanShot())
+        {
+            StartCoroutine(MachineGunShooting());
+        }
+        else
+        {
+            Debug.Log("Патронов больше нет!");
+        }
     }
 
     private IEnumerator MachineGunShooting()
@@ -32,8 +41,13 @@ public class MachineGun : WeaponManager
         }
     }
 
+    public void SaveData()
+    {
+        saveData.SetData(this.gameObject.tag, weapon.GetQuantityBulletsInClip(), weapon.GetQuantityBulletsInPouch());
+    }
+
     protected override void OnDestroy()
     {
-        base.OnDestroy();
+        SaveData();
     }
 }
