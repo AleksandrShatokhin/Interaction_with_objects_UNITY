@@ -6,7 +6,11 @@ public class HandGun : WeaponManager
 {
     private void Start()
     {
-        weapon = new Weapon(GameController.GetInstance().GetHandGun(), quantityBulletsInClip, quantityBulletsInPouch);
+        quantityBulletsInClip = GameController.GetInstance().GetBulletsInClipHandgun();
+        quantityBulletsInPouch = GameController.GetInstance().GetBulletsInPouchHandgun();
+
+        weapon = new Weapon(quantityBulletsInClip, quantityBulletsInPouch);
+        weapon.OutputBulletsTextOnScreen();
     }
 
     public void Shot()
@@ -15,8 +19,8 @@ public class HandGun : WeaponManager
         weapon.ChangeBullets(-1);
     }
 
-    protected override void OnTriggerEnter(Collider other)
+    protected override void OnDestroy()
     {
-        base.OnTriggerEnter(other);
+        base.OnDestroy();
     }
 }

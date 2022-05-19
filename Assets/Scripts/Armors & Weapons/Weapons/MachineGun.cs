@@ -6,7 +6,11 @@ public class MachineGun : WeaponManager
 {
     private void Start()
     {
-        weapon = new Weapon(GameController.GetInstance().GetMichineGun(), quantityBulletsInClip, quantityBulletsInPouch);
+        quantityBulletsInClip = GameController.GetInstance().GetBulletsInClipMachinegun();
+        quantityBulletsInPouch = GameController.GetInstance().GetBulletsInPouchMachinegun();
+
+        weapon = new Weapon(quantityBulletsInClip, quantityBulletsInPouch);
+        weapon.OutputBulletsTextOnScreen();
     }
 
     public void Shot()
@@ -28,8 +32,8 @@ public class MachineGun : WeaponManager
         }
     }
 
-    protected override void OnTriggerEnter(Collider other)
+    protected override void OnDestroy()
     {
-        base.OnTriggerEnter(other);
+        base.OnDestroy();
     }
 }

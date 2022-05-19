@@ -42,6 +42,17 @@ public class Weapon
     private int quantityBulletsInClip;
     private int quantityBulletsInPouch;
 
+    public Weapon(GameObject currentWeapon)
+    {
+        this.currentWeapon = currentWeapon;
+    }
+
+    public Weapon(int quantityBulletsInClip, int quantityBulletsInPouch)
+    {
+        this.quantityBulletsInClip = quantityBulletsInClip;
+        this.quantityBulletsInPouch = quantityBulletsInPouch;
+    }
+
     public Weapon(GameObject currentWeapon, int quantityBulletsInClip, int quantityBulletsInPouch)
     {
         this.currentWeapon = currentWeapon;
@@ -55,6 +66,9 @@ public class Weapon
         OutputBulletsTextOnScreen();
     }
 
+    public int GetQuantityBulletsInClip() => quantityBulletsInClip;
+    public int GetQuantityBulletsInPouch() => quantityBulletsInPouch;
+
     public void OutputBulletsTextOnScreen()
     {
         mainui = GameController.GetInstance().GetMainUI();
@@ -66,4 +80,31 @@ public class Weapon
         playerController = GameController.GetInstance().GetPlayerController();
         playerController.TakeWeapon(currentWeapon);
     }
+}
+
+class SaveData
+{
+    int bulletsInClipHandGun, bulletsInPouchHandGun;
+    int bulletsInClipMachineGun, bulletsInPouchMachineGun;
+
+    public void SetData(string tagWeapon, int bulletsInClip, int bulletsInPouch)
+    {
+        if (tagWeapon == "HandGun")
+        {
+            bulletsInClipHandGun = bulletsInClip;
+            bulletsInPouchHandGun = bulletsInPouch;
+        }
+
+        if (tagWeapon == "MachineGun")
+        {
+            bulletsInClipMachineGun = bulletsInClip;
+            bulletsInPouchMachineGun = bulletsInPouch;
+        }
+    }
+
+    public int GetBulletsInClipHandGun() => bulletsInClipHandGun;
+    public int GetBulletsInPouchHandGun() => bulletsInPouchHandGun;
+
+    public int GetBulletsInClipMachineGun() => bulletsInClipMachineGun;
+    public int GetBulletsInPouchMachineGun() => bulletsInPouchMachineGun;
 }

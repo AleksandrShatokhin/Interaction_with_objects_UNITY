@@ -64,7 +64,9 @@ public class PlayerController : MonoBehaviour
 
     private void SwitchWeaponInHand()
     {
-        if (weapons.Count != 0)
+        int minCountToScroll = 2;
+
+        if (weapons.Count >= minCountToScroll)
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0.0f)
             {

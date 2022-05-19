@@ -34,6 +34,11 @@ public class WeaponManager : MonoBehaviour
     public Vector3 SetDirectionSpawnBullet(Vector3 direction) => directionSpawnBullet = direction;
     public Transform GetSpawnProjectilePosition() => spawnProjectilePosition;
 
+    virtual protected void OnDestroy()
+    {
+        GameController.GetInstance().SetData(this.gameObject.tag, weapon.GetQuantityBulletsInClip(), weapon.GetQuantityBulletsInPouch());
+    }
+
     virtual protected void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
