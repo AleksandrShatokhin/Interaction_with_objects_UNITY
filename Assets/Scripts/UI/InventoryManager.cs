@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ChildInventory
-{
-    icon = 0,
-    counter = 1
-}
-
 public class InventoryManager : MonoBehaviour
 {
     private bool isInventoryCalled = false;
@@ -18,6 +12,12 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(ActiveInventoryOn());
+    }
+
+    IEnumerator ActiveInventoryOn()
+    {
+        yield return new WaitForSeconds(0.01f);
         this.gameObject.SetActive(false);
     }
 
@@ -39,9 +39,24 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void SetValueInInventory(Sprite icon, int quantity)
+    public void SetValueInInventory(Sprite icon, int quantity, int value)
     {
-        items[0].transform.GetChild((int)ChildInventory.icon).GetComponent<Image>().sprite = icon;
-        items[0].transform.GetChild((int)ChildInventory.counter).GetComponent<Text>().text = quantity.ToString();
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].GetComponent<CellController>().GetValue() == value)
+            {
+                items[i].GetComponent<CellController>().AddItemToCurrent(quantity);
+                break;
+            }
+            else
+            {
+                if (items[i].GetComponent<CellController>().GetState() == (int)StateCell.StateDefault)
+                {
+                    items[i].GetComponent<CellController>().StateHaveItem(icon, quantity, value);
+                    break;
+                }
+                
+            }
+        }
     }
 }

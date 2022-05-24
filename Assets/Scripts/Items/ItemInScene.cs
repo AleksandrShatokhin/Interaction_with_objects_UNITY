@@ -10,7 +10,7 @@ public class ItemInScene : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            GameController.GetInstance().GetInventoryManager().SetValueInInventory(itemData.icon, itemData.quantity);
+            GameController.GetInstance().GetInventoryManager().SetValueInInventory(itemData.icon, itemData.quantity, itemData.value);
             Destroy(this.gameObject);
         }
     }

@@ -129,6 +129,14 @@ public class SaveDataWeapon
 
 public interface IStateCellInventory
 {
-    void Enter();
+    void Enter(int stateEvent);
     void Exit();
+}
+
+public class StateCellDefault
+{
+    public StateCellDefault(string Event)
+    {
+
+    }
 }

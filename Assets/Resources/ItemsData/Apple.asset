@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 9d1911605a319004ba8d415f9860ebd1, type: 3}
   quantity: 2
+  value: 1

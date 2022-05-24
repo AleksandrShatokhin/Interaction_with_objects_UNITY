@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
         SwitchWeaponInHand();
         Shooting();
         CallPlayerInventory();
+        PauseMode();
     }
 
     private void FixedUpdate()
@@ -83,10 +84,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void PauseMode()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameController.GetInstance().GetPauseMode();
+        }
+    }
+
     private void CallPlayerInventory()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
+            GameController.GetInstance().GetMouse();
             GameController.GetInstance().GetInventoryManager().CallInventory();
         }
     }
