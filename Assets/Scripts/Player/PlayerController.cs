@@ -107,32 +107,41 @@ public class PlayerController : MonoBehaviour
 
         if (weapons.Count >= minCountToScroll)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0.0f)
-            {
-                if (counterWeapon >= weapons.Count - 1)
-                {
-                    counterWeapon = 0;
-                    TakeWeapon(counterWeapon);
-                }
-                else
-                {
-                    counterWeapon += 1;
-                    TakeWeapon(counterWeapon);
-                }
-            }
+            ScrollUp();
+            ScrollBottom();
+        }
+    }
 
-            if (Input.GetAxis("Mouse ScrollWheel") < 0.0f)
+    private void ScrollUp()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0.0f)
+        {
+            if (counterWeapon >= weapons.Count - 1)
             {
-                if (counterWeapon <= 0)
-                {
-                    counterWeapon = weapons.Count - 1;
-                    TakeWeapon(counterWeapon);
-                }
-                else
-                {
-                    counterWeapon -= 1;
-                    TakeWeapon(counterWeapon);
-                }
+                counterWeapon = 0;
+                TakeWeapon(counterWeapon);
+            }
+            else
+            {
+                counterWeapon += 1;
+                TakeWeapon(counterWeapon);
+            }
+        }
+    }
+
+    private void ScrollBottom()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") < 0.0f)
+        {
+            if (counterWeapon <= 0)
+            {
+                counterWeapon = weapons.Count - 1;
+                TakeWeapon(counterWeapon);
+            }
+            else
+            {
+                counterWeapon -= 1;
+                TakeWeapon(counterWeapon);
             }
         }
     }

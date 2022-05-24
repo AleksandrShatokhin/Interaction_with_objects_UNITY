@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,12 +7,6 @@ public enum Value
     Apple = 1,
     Coin = 2,
     Booster = 3
-}
-
-public enum Event
-{
-    PlayerEmptiedCell = 0,  // Игрок опустошил ячейку инвентаря
-    PickUpItem = 1          // Игрок подобрал предмет в инвентарь
 }
 
 public enum ChildInventory
