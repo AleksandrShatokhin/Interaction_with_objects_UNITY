@@ -1,80 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    private static GameController instance;
-    public static GameController GetInstance() => instance;
-
-    [SerializeField] private PlayerController playerController;
-    [SerializeField] private MainUI mainui;
-    [SerializeField] private InventoryManager inventoryManager;
-
-    [SerializeField] private GameObject pausePrefab;
-
-    private bool isPause = false, isMouse = false;
-
-    private void Awake()
-    {
-        instance = this;
-    }
+    [SerializeField] private GameObject inventory;
+    [SerializeField] private List<GameObject> enemies;
 
     private void Start()
     {
-        GetMouse();
+        Cursor.visible = false;
+        StartCoroutine(EnableEnemy());
     }
 
-    public PlayerController GetPlayerController() => playerController;
-    public MainUI GetMainUI() => mainui;
-    public InventoryManager GetInventoryManager() => inventoryManager;
-
-    public void OutputTextArmorOnScreen(float speed, int health, int experience) => mainui.OutputTextArmorOnScreen(speed, health, experience);
-
-    public void GetMouse()
+    private IEnumerator EnableEnemy()
     {
-        if (!isMouse)
+        yield return new WaitForSeconds(10.0f);
+        foreach (GameObject enemy in enemies)
         {
-            MouseCursorOn();
-            isMouse = true;
+            enemy.SetActive(true);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            VisabilityOfTheInventory();
+        }
+    }
+
+    private void VisabilityOfTheInventory()
+    {
+        if (inventory.activeInHierarchy == false)
+        {
+            inventory.SetActive(true);
         }
         else
         {
-            MouseCursorOff();
-            isMouse = false;
+            inventory.SetActive(false);
         }
-    }
-    private void MouseCursorOn() => Cursor.visible = false;
-    private void MouseCursorOff() => Cursor.visible = true;
-
-    public void GetPauseMode()
-    {
-        if (!isPause)
-        {
-            isPause = true;
-            GetMouse();
-            CallPauseMode();
-        }
-        else
-        {
-            RevokePauseMode();
-            GetMouse();
-            isPause = false;
-        }
-    }
-
-    private void CallPauseMode()
-    {
-        mainui.gameObject.SetActive(false);
-        Instantiate(pausePrefab, pausePrefab.transform.position, pausePrefab.transform.rotation);
-        Time.timeScale = 0.0f;
-    }
-
-    private void RevokePauseMode()
-    {
-        Time.timeScale = 1.0f;
-        mainui.gameObject.SetActive(true);
-        GameObject pause = GameObject.Find("PauseMode(Clone)");
-        Destroy(pause);
     }
 }

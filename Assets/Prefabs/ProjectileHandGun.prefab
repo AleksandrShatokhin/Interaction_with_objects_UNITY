@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.07, y: 0.1, z: 0.07}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3818320900970419805}
   m_RootOrder: 0
@@ -51,6 +52,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -90,9 +92,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3818320900970419805}
-  - component: {fileID: 3818320900970419802}
   - component: {fileID: 3818320900970419804}
   - component: {fileID: 521097950}
+  - component: {fileID: -8096742679980457859}
+  - component: {fileID: -2035534864993021749}
   m_Layer: 0
   m_Name: ProjectileHandGun
   m_TagString: Untagged
@@ -110,23 +113,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2, y: 0.6, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3818320900873776902}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3818320900970419802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3818320900970419803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7045f19c1e130704cbb9db340d742659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &3818320900970419804
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -157,3 +149,29 @@ CapsuleCollider:
   m_Height: 0.4014535
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.09880996}
+--- !u!114 &-8096742679980457859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3818320900970419803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b08a45387bcfbd4a93dc688e3ba9a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceRate: 8
+--- !u!114 &-2035534864993021749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3818320900970419803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e0855b4e9a8b34fa843ddf7e55d4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletDamage: 15
