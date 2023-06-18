@@ -11,10 +11,10 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         Cursor.visible = false;
-        StartCoroutine(EnableEnemy());
+        StartCoroutine(TurnOnEnemy());
     }
 
-    private IEnumerator EnableEnemy()
+    private IEnumerator TurnOnEnemy()
     {
         yield return new WaitForSeconds(10.0f);
         foreach (GameObject enemy in enemies)

@@ -8,7 +8,7 @@ public abstract class ArmorManager : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider collider)
     {
-        collider.GetComponent<IPickableArmor>().SetParametersArmor(speed, health, armor);
+        collider.GetComponent<IPickableArmor>()?.SetParametersArmor(speed, health, armor);
         Destroy(this.gameObject);
     }
 }

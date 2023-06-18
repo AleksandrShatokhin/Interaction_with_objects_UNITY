@@ -23,7 +23,7 @@ public interface IPickableItem
 public interface IHealthable
 {
     void TakeDamage(int damage);
-    void SetParameters(int health, int armor);
+    void SetHealthParameters(int health, int armor);
 }
 
 public interface IDeathable

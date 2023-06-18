@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthComponent : MonoBehaviour, IHealthable
@@ -9,8 +7,6 @@ public class HealthComponent : MonoBehaviour, IHealthable
 
     void IHealthable.TakeDamage(int damage)
     {
-        Debug.Log("Contact");
-
         int currentDamage = (damage - armor / 10);
 
         if (currentDamage < 0)
@@ -26,7 +22,7 @@ public class HealthComponent : MonoBehaviour, IHealthable
         }
     }
 
-    void IHealthable.SetParameters(int health, int armor)
+    void IHealthable.SetHealthParameters(int health, int armor)
     {
         this.health = health;
         this.armor = armor;

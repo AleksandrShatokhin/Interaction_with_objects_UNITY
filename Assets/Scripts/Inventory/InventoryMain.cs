@@ -16,15 +16,15 @@ public class InventoryMain : MonoBehaviour
     {
         foreach (InventoryCell cell in inventoryCells)
         {
-            if (cell.GetItemInSell() == null)
+            if (cell.ItemInCell == null)
             {
-                cell.SetItemToEmptyCell(item);
+                cell.AddItemToEmptyCell(item);
                 return;
             }
 
-            if (cell.GetItemInSell().itemSO.ItemType == item.itemSO.ItemType)
+            if (cell.ItemInCell.itemSO.ItemType == item.itemSO.ItemType)
             {
-                cell.SetItemToCurrentCell(item);
+                cell.AddItemToCurrentCell(item);
                 return;
             }
         }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDeathable
@@ -34,6 +32,8 @@ public class PlayerController : MonoBehaviour, IDeathable
 
     void IDeathable.Death()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("OneScene");
+        RebootCurrentScene();
     }
+
+    private void RebootCurrentScene() => UnityEngine.SceneManagement.SceneManager.LoadScene("OneScene");
 }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour, IDeathable
@@ -21,19 +20,13 @@ public class EnemyController : MonoBehaviour, IDeathable
     {
         while (true)
         {
-            StateIdle();
             int delay = Random.Range(2, 5);
             yield return new WaitForSeconds(delay);
-            StateAttaking();
+            Attaking();
         }
     }
 
-    private void StateIdle()
-    {
-
-    }
-
-    private void StateAttaking()
+    private void Attaking()
     {
         foreach (Transform weaponInHand in weaponPosition)
         {

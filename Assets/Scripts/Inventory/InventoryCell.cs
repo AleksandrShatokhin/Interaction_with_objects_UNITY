@@ -9,16 +9,16 @@ public class InventoryCell : MonoBehaviour
     [SerializeField] private Text cellCounter;
 
     [SerializeField] private PickableItem itemInCell;
-    public PickableItem GetItemInSell() => itemInCell;
+    public PickableItem ItemInCell { get { return itemInCell; } }
 
-    public void SetItemToEmptyCell(PickableItem item)
+    public void AddItemToEmptyCell(PickableItem item)
     {
         itemInCell = item;
         cellIcon.sprite = itemInCell.itemSO.Sprite;
         cellCounter.text = itemInCell.itemSO.Count.ToString();
     }
 
-    public void SetItemToCurrentCell(PickableItem item)
+    public void AddItemToCurrentCell(PickableItem item)
     {
         int currentCount = int.Parse(cellCounter.text) + item.itemSO.Count;
         cellCounter.text = currentCount.ToString();

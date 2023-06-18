@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerArmor : MonoBehaviour, IPickableArmor
@@ -28,7 +26,7 @@ public class PlayerArmor : MonoBehaviour, IPickableArmor
     private void SentPlayerParametersOnScreen()
     {
         mainUIController.SetPlayerParametersOnScreen(speedPlayer, healthPlayer, armorPlayer);
-        GetComponent<PlayerController>().SpeedUpdate(this.speedPlayer); ///
-        GetComponent<IHealthable>().SetParameters(healthPlayer, armorPlayer);
+        GetComponent<PlayerController>().SpeedUpdate(this.speedPlayer);
+        GetComponent<IHealthable>().SetHealthParameters(healthPlayer, armorPlayer);
     }
 }
